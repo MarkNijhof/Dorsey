@@ -11,7 +11,9 @@ module Dorsey
       @articles = Articles.new(@config[:article_path])
     end
     
-    
+    def get_by_slug_part slug
+      self.articles.select{ |item| item[:file] =~ /#{slug}/ }
+    end
     
   end
 end

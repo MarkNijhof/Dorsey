@@ -1,6 +1,6 @@
 title: Test 1 2 3
 author: Mark Nijhof
-date: 01/11/2010
+date: 01/10/2010
 published: true 
 slug: test_3_2_1
 

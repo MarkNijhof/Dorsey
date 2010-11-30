@@ -2,7 +2,8 @@
 module Dorsey
   class Config < Hash
     Defaults = {
-      :article_path => "articles"
+      :article_path => "articles",
+      :date => lambda {|now| now.strftime("%d/%m/%Y") }
     }
 
     def initialize obj

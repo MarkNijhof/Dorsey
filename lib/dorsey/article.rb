@@ -5,10 +5,12 @@ module Dorsey
   class Article < Hash
     Defaults = {
       :publish_date => "",
-      :body => ""
+      :body => "",
+      :file => ""
     }
 
     def initialize article_file
+      self[:file] = article_file
       load_article article_file
     end
 
@@ -29,8 +31,10 @@ module Dorsey
     def abstract_meta_data article_file, raw_meta_data
       meta_data = YAML.load(raw_meta_data).inject({}) {|h, (k,v)| h.merge(k.to_sym => v) }
       
-      article_file =~ /\/(\d{4}-\d{2}-\d{2})[^\/]*$/
-      meta_data.merge(($1 ? {:date => $1} : {}))
+      article_file =~ /\/(\d{4}-\d{2}-\d{2})[^\/]*$/ 
+      (date = $1)
+#      ($1 ? {:date => $1} : {}).merge meta_data
+      meta_data[:date] = date
       rename_slug_key meta_data
     end
     
