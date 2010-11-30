@@ -9,6 +9,8 @@ module Dorsey
       @config.instance_eval(&blk) if block_given?
       
       @articles = Articles.new(@config[:article_path]).reverse
+      
+      puts ">> Initialized Dorsey Server, reading articles from: #{@config[:article_path]}"
     end
     
     def get_by_slug_part slug
