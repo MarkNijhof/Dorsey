@@ -19,6 +19,10 @@ module Dorsey
       
       super
     end
+    
+    def method_missing m, *args, &blk
+      self[m.to_sym] || super
+    end
 
     protected
         
@@ -33,7 +37,7 @@ module Dorsey
       
       article_file =~ /\/(\d{4}-\d{2}-\d{2})[^\/]*$/ 
       (date = $1)
-#      ($1 ? {:date => $1} : {}).merge meta_data
+
       meta_data[:date] = date
       rename_slug_key meta_data
     end

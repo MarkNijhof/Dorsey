@@ -8,7 +8,7 @@ module Dorsey
       @config = config.is_a?(Dorsey::Config) ? config : Dorsey::Config.new(config)
       @config.instance_eval(&blk) if block_given?
       
-      @articles = Articles.new(@config[:article_path])
+      @articles = Articles.new(@config[:article_path]).reverse
     end
     
     def get_by_slug_part slug

@@ -15,7 +15,6 @@ module Dorsey
     def load_articles article_files
       article_files.each { |file| self << Article.new(file) }
     end
-    
 
   end
 end

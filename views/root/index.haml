@@ -1,2 +1,9 @@
 %section
-  Hello world
+
+  - for article in @blog_dorsey.articles.select{|item| item[:published] }[0...5]
+    %article.post
+      %header
+        %h1
+          %a{:href=>"#{article.slug}"}
+            #{article.title}
+  

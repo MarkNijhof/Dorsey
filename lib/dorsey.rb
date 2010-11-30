@@ -1,7 +1,7 @@
 
-require 'dorsey/ext/string'
+require './lib/dorsey/ext/string'
 
-require 'dorsey/server'
-require 'dorsey/config'
-require 'dorsey/articles'
-require 'dorsey/article'
+require './lib/dorsey/server'
+require './lib/dorsey/config'
+require './lib/dorsey/articles'
+require './lib/dorsey/article'
