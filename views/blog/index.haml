@@ -1,4 +1,4 @@
 %section.articles
-  - for post in dorsey_blog.articles.select{|item| item[:published] }[0...5]
+  - for post in articles.select{|item| item[:published] }[0...5]
     = haml(:'blog/_article_summary', :layout => false, :locals => { :post => post })
   

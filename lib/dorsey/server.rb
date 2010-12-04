@@ -12,8 +12,18 @@ module Dorsey
       puts ">> Initialized Dorsey Server, reading articles from: #{@config[:article_path]}"
     end
     
-    def get_by_slug_part slug
-      self.articles.select{ |item| item[:file] =~ /#{slug}/ }
+    def get_by_slug slug
+      slug =~ /^(.+)\/$/
+      slug = $1 || slug
+
+#      slug =~ /^\/(.+)$/
+#      slug = $1 || slug
+
+#      slug = slug.gsub(/\//, '-')
+
+      puts "x #{slug}"
+
+      self.articles.select{ |item| item[:url] =~ /#{slug}/ }
     end
     
   end

@@ -4,7 +4,8 @@ task :sass do
 end
 
 task :run => [:set_development_environment] do
-  sh "thin start -R config.ru -a local.cre8ivethought.com"
+  sh "shotgun config.ru -o local.cre8ivethought.com -p 3000 -s thin -E development" 
+  # sh "thin start -R config.ru -a local.cre8ivethought.com"
   # sh "rackup -o local.cre8ivethought.com -p 3000"
 end  
 

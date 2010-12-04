@@ -74,7 +74,7 @@ module Dorsey
     end
     
     def path
-      "/#{self[:date_as_date].strftime("/%Y/%m/%d/#{self[:slug]}/")}".squeeze('/')
+      "/#{self[:date_as_date].strftime("%Y/%m/%d/#{self[:slug]}")}"
     end
 
   end

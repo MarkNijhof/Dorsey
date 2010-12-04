@@ -21,6 +21,8 @@ GEM
     rspec-expectations (2.1.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.1.0)
+    shotgun (0.8)
+      rack (>= 1.0)
     sinatra (1.1.0)
       rack (~> 1.1)
       tilt (~> 1.1)
@@ -41,5 +43,6 @@ DEPENDENCIES
   rake (= 0.8.7)
   rdiscount (= 1.6.5)
   rspec (= 2.1.0)
+  shotgun (= 0.8)
   sinatra (= 1.1.0)
   thin

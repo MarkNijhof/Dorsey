@@ -23,7 +23,13 @@ class WebApplication < Sinatra::Base
   end
   
   get '/blog/index' do
-    haml(:'root/index', :locals => { :title => "Cre8ive Thought", :dorsey_blog => $blog_dorsey})
+    haml(:'blog/index', :locals => { :title => "Cre8ive Thought", :articles => $blog_dorsey.articles})
+  end
+
+  get '/blog/*' do
+    article = $blog_dorsey.get_by_slug params[:splat][0]
+
+    haml(:'blog/article', :locals => { :title => "Cre8ive Thought - #{article[0].title}", :post => article[0]} )
   end
   
 end
