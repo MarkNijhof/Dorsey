@@ -1,22 +1,24 @@
 require 'date'
 require 'rack'
+require 'rdiscount'
 
 module Dorsey
   class Article < Hash
     Defaults = {
       :publish_date => "",
       :body => "",
+      :summary => "",
       :file => ""
     }
 
-    def initialize article_file
+    def initialize article_file, config
       self[:file] = article_file
+      @config = config
       load_article article_file
     end
 
     def [] key
       return self[:__slug] || self[:title].slugize if key == :slug
-      
       super
     end
     
@@ -26,9 +28,31 @@ module Dorsey
 
     protected
         
-    def load_article article_file
-      raw_meta_data, self[:body] = File.read(article_file).split(/\n\n/, 2)
+    def markdown text
+      if (options = @config[:markdown])
+        Markdown.new(text.to_s.strip, *(options.eql?(true) ? [] : options)).to_html
+      else
+        text.strip
+      end
+    end
 
+    def get_summary body
+#      delimiter = body.split(@config[:summary_delimiter]).first
+#      split = delimiter.length > @config[:summary_length] ? @sconfig[:summary_legth] : delimiter.length
+#      body.match(/(.{1,#{@config[:summary_length]}}.*?)(\n|\Z)/m).to_s
+
+      sum = if body =~ @config[:summary_delimiter]
+        body.split(@config[:summary_delimiter]).first
+      else
+        body.match(/(.{1,#{@config[:summary_length]}}.*?)(\n|\Z)/m).to_s
+      end
+      sum.length == body.length ? sum : sum.strip.sub(/\.\Z/, '&hellip;')
+    end
+
+    def load_article article_file
+      raw_meta_data, body = File.read(article_file).split(/\n\n/, 2)
+      self[:body] = markdown body
+      self[:summary] = markdown(get_summary(body))
       self.update abstract_meta_data(article_file, raw_meta_data)
     end
     

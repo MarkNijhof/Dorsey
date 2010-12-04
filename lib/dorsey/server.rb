@@ -7,7 +7,7 @@ module Dorsey
       @config = config.is_a?(Dorsey::Config) ? config : Dorsey::Config.new(config)
       @config.instance_eval(&blk) if block_given?
       
-      @articles = Articles.new(@config[:article_path]).reverse
+      @articles = Articles.new(@config).reverse
       
       puts ">> Initialized Dorsey Server, reading articles from: #{@config[:article_path]}"
     end

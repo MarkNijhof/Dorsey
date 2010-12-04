@@ -15,8 +15,7 @@ class WebApplication < Sinatra::Base
   end
   
   get '/blog/index' do
-    @blog_dorsey = $blog_dorsey
-    haml :'root/index', :title => "Cre8ive Thought"
+    haml(:'root/index', :locals => { :title => "Cre8ive Thought", :dorsey_blog => $blog_dorsey})
   end
   
 end

@@ -2,8 +2,9 @@
 module Dorsey
   class Articles < Array
 
-    def initialize articles_path
-      load_articles article_files articles_path
+    def initialize config
+      @config = config
+      load_articles article_files @config[:article_path]
     end
     
     protected
@@ -13,7 +14,7 @@ module Dorsey
     end
     
     def load_articles article_files
-      article_files.each { |file| self << Article.new(file) }
+      article_files.each { |file| self << Article.new(file, @config) }
     end
 
   end

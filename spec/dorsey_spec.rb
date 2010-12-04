@@ -32,7 +32,17 @@ describe "Dorsey" do
     dorsey.articles[0][:date].should == '2010-11-03'
   end
 
-  it "will use the slug independently of the defined order in the article" do
+  it "will create a summary from the body" do
+    dorsey = Dorsey::Server.new do
+      set :article_path, './spec/articles'
+      set :summary_length, 10
+    end
+
+    dorsey.articles[0][:summary].length.should == 10
+    dorsey.articles[0][:summary].should == 'This is'
+  end
+
+ it "will use the slug independently of the defined order in the article" do
     dorsey = Dorsey::Server.new do
       set :article_path, './spec/articles'
     end

@@ -1,5 +1,4 @@
 %section
-
-  - for a in @blog_dorsey.articles.select{|item| item[:published] }[0...5]
-    = haml :'_article_heading', :layout => false, :locals => {set :article = a}
+  - for post in dorsey_blog.articles.select{|item| item[:published] }[0...5]
+    = haml(:'_article_heading', :layout => false, :locals => { :post => post })
   

@@ -3,6 +3,9 @@ module Dorsey
   class Config < Hash
     Defaults = {
       :article_path => "articles",
+      :summary_delimiter => /~\n/,
+      :summary_length => 150,
+      :markdown => :smart,
       :date => lambda {|now| now.strftime("%d/%m/%Y") }
     }
 
