@@ -37,16 +37,10 @@ module Dorsey
     end
 
     def get_summary body
-#      delimiter = body.split(@config[:summary_delimiter]).first
-#      split = delimiter.length > @config[:summary_length] ? @sconfig[:summary_legth] : delimiter.length
-#      body.match(/(.{1,#{@config[:summary_length]}}.*?)(\n|\Z)/m).to_s
+      summary = body =~ @config[:summary_delimiter] ? body.split(@config[:summary_delimiter]).first : body
+      sum = summary.match(/(.{1,#{@config[:summary_length]}}.*?)(\n|\Z)/m).to_s
 
-      sum = if body =~ @config[:summary_delimiter]
-        body.split(@config[:summary_delimiter]).first
-      else
-        body.match(/(.{1,#{@config[:summary_length]}}.*?)(\n|\Z)/m).to_s
-      end
-      sum.length == body.length ? sum : sum.strip.sub(/\.\Z/, '&hellip;')
+      sum.length <= body.length ? sum : sum.strip.sub(/\.\Z/, '123&hellip;')
     end
 
     def load_article article_file
