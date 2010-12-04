@@ -35,7 +35,7 @@ body.three-col {
       display: inline;
       margin: 0;
       font-weight: 600;
-    	font-size: 2.0em;
+    	font-size: 1.8em;
     	text-align: right;
       a {
         color: #3B4A25;
@@ -51,7 +51,7 @@ body.three-col {
       display: inline;
       margin: 0;
       font-weight: 600;
-    	font-size: 1.8em;
+    	font-size: 1.6em;
     	text-align: right;
       }
     h3, h4 {
@@ -75,6 +75,14 @@ body.three-col {
       margin-right: 30px;
       color: #cccccc;  
       }
+    .date_post {
+      position: absolute;
+      font-style: italic;
+      float: left;
+      top: -45px;
+      left: 3px;
+      color: #cccccc;
+      }
     }
 
   #left-side {
@@ -83,16 +91,13 @@ body.three-col {
   #main-area {
   @include column(20); }
 
-  #header {
-    position: relative;
-    height: 220px;
-    background: #ffffff;
-    }
-
   #content {
     padding: 0px 30px 10px 30px;
     background: #ffffff;
     background-image: url('http://cre8ivethought.s3.amazonaws.com/images/frame-front-middle.png');	
+    .post {
+      position: relative;
+      }
     }
 
   #footer {
@@ -118,6 +123,9 @@ body.three-col {
   }
 
 #header {
+  position: relative;
+  height: 220px;
+  background: #ffffff;
   #frame-foreground {
   	position: absolute;
   	top: 0px;

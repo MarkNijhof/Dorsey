@@ -27,9 +27,13 @@ class WebApplication < Sinatra::Base
   end
 
   get '/blog/*' do
-    article = $blog_dorsey.get_by_slug params[:splat][0]
+    articles = $blog_dorsey.get_by_slug params[:splat][0]
 
-    haml(:'blog/article', :locals => { :title => "Cre8ive Thought - #{article[0].title}", :post => article[0]} )
+    return haml(:'blog/article', :locals => { :title => "Cre8ive Thought - #{articles[0].title}", :post => articles[0]} ) if articles.count == 1
+
+    return haml(:'blog/archive', :locals => { :title => "Cre8ive Thought - #{params[:splat][0]}", :posts => articles, :slug => params[:splat][0] } ) if articles.count > 1
+
+    haml(:'blog/404', :locals => { :title => "Cre8ive Thought - Not Found", :slug => params[:splat][0] } )
   end
   
 end
