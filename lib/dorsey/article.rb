@@ -8,11 +8,13 @@ module Dorsey
       :publish_date => "",
       :body => "",
       :summary => "",
-      :file => ""
+      :file => "",
+      :url => ""
     }
 
     def initialize article_file, config
       self[:file] = article_file
+      self[:disqus] = config[:disqus]
       @config = config
       load_article article_file
     end
@@ -37,10 +39,7 @@ module Dorsey
     end
 
     def get_summary body
-      summary = body =~ @config[:summary_delimiter] ? body.split(@config[:summary_delimiter]).first : body
-      sum = summary.match(/(.{1,#{@config[:summary_length]}}.*?)(\n|\Z)/m).to_s
-
-      sum.length <= body.length ? sum : sum.strip.sub(/\.\Z/, '123&hellip;')
+      body =~ @config[:summary_delimiter] ? body.split(@config[:summary_delimiter]).first : body
     end
 
     def load_article article_file
@@ -48,6 +47,7 @@ module Dorsey
       self[:body] = markdown body
       self[:summary] = markdown(get_summary(body))
       self.update abstract_meta_data(article_file, raw_meta_data)
+      generate_url
     end
     
     def abstract_meta_data article_file, raw_meta_data
@@ -56,14 +56,25 @@ module Dorsey
       article_file =~ /\/(\d{4}-\d{2}-\d{2})[^\/]*$/ 
       (date = $1)
 
-      meta_data[:date] = date
-      rename_slug_key meta_data
+      meta_data[:date_as_date] = Date.parse(date.gsub('/', '-')) rescue Date.today 
+      meta_data[:date] = @config[:date].call meta_data[:date_as_date]
+      meta_data = rename_slug_key meta_data
+      meta_data
     end
     
     def rename_slug_key meta_data
       meta_data[:__slug] = meta_data[:slug] if !meta_data[:slug].nil?
       meta_data.delete :slug
       meta_data
+    end
+
+    def generate_url 
+      url = File.join @config[:host], @config[:article_prefix]
+      self[:url] = File.join url, path
+    end
+    
+    def path
+      "/#{self[:date_as_date].strftime("/%Y/%m/%d/#{self[:slug]}/")}".squeeze('/')
     end
 
   end

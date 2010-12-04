@@ -2,10 +2,14 @@
 module Dorsey
   class Config < Hash
     Defaults = {
+      :article_prefix => "",
+      :host => "",
       :article_path => "articles",
-      :summary_delimiter => /~\n/,
+      :summary_delimiter => /\n/,
       :summary_length => 150,
       :markdown => :smart,
+      :url => "",
+      :disqus => "",
       :date => lambda {|now| now.strftime("%d/%m/%Y") }
     }
 

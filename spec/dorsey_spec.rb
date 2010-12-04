@@ -35,11 +35,12 @@ describe "Dorsey" do
   it "will create a summary from the body" do
     dorsey = Dorsey::Server.new do
       set :article_path, './spec/articles'
-      set :summary_length, 10
     end
 
-    dorsey.articles[0][:summary].length.should == 10
-    dorsey.articles[0][:summary].should == 'This is'
+    dorsey.articles[0][:summary].length.should == 34
+    dorsey.articles[0][:summary].match /<p>This is the article text 1<\/p>/
+    dorsey.articles[1][:summary].length.should == 34
+    dorsey.articles[1][:summary].match /<p>This is the article text 2<\/p>/
   end
 
  it "will use the slug independently of the defined order in the article" do
@@ -71,4 +72,13 @@ describe "Dorsey" do
     dorsey.get_by_slug_part('2010').count.should == 3
   end
 
+  it "will generate the url from host, prefix, and slug" do
+    dorsey = Dorsey::Server.new do
+      set :host, "http://localhost:3000"
+      set :article_prefix, "blog"
+      set :article_path, './spec/articles'
+    end
+
+    dorsey.articles[2][:url].should == 'http://localhost:3000/blog/2010/10/01/test_3_2_1/'
+  end
 end
