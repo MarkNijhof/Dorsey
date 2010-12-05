@@ -15,14 +15,6 @@ module Dorsey
     def get_by_slug slug
       slug =~ /^(.+)\/$/
       slug = $1 || slug
-
-#      slug =~ /^\/(.+)$/
-#      slug = $1 || slug
-
-#      slug = slug.gsub(/\//, '-')
-
-      puts "x #{slug}"
-
       self.articles.select{ |item| item[:url] =~ /#{slug}/ }
     end
     
