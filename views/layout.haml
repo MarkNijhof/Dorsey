@@ -16,7 +16,7 @@
         
       #main-area
         #header
-          = haml :'_header', :layout => false
+          = haml :"_header_#{$header_for}", :layout => false
       
         #content
           = yield

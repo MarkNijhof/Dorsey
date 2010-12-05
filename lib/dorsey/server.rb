@@ -9,7 +9,7 @@ module Dorsey
       
       @articles = Articles.new(@config).reverse
       
-      puts ">> Initialized Dorsey Server, reading articles from: #{@config[:article_path]}"
+      puts ">> Dorsey Server Initialized, reading from: #{@config[:article_path]} found #{@articles.count} articles"
     end
     
     def get_by_slug slug
