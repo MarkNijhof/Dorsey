@@ -26,3 +26,9 @@ class Fixnum
     end
   end
 end
+
+class Date
+  def iso8601
+    ::Time.utc(year, month, day, 0, 0, 0, 0).iso8601
+  end
+end
